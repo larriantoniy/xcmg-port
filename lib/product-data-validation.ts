@@ -5,13 +5,15 @@ export type ProductDataValidationCode =
   | "DUPLICATE_PRODUCT_SLUG"
   | "DUPLICATE_SOURCE_ID"
   | "UNKNOWN_SOURCE_REFERENCE"
-  | "VERIFIED_SPECIFICATION_WITHOUT_SOURCE";
+  | "VERIFIED_SPECIFICATION_WITHOUT_SOURCE"
+  | "VERIFIED_FEATURE_WITHOUT_SOURCE";
 
 export interface ProductDataValidationIssue {
   code: ProductDataValidationCode;
   message: string;
   productSlug?: string;
   specificationLabel?: string;
+  featureTitle?: string;
   sourceId?: string;
 }
 
@@ -54,6 +56,17 @@ export function validateProductData(
       }
       if (specification.verificationStatus === "verified" && validSourceIds.length === 0) {
         issues.push({ code: "VERIFIED_SPECIFICATION_WITHOUT_SOURCE", productSlug: product.slug, specificationLabel: specification.label, message: `Verified specification ${product.slug}/${specification.label} requires a valid source` });
+      }
+    }
+    for (const feature of product.features) {
+      const validSourceIds = feature.sourceIds.filter((sourceId) => sourceIds.has(sourceId));
+      for (const sourceId of feature.sourceIds) {
+        if (!sourceIds.has(sourceId)) {
+          issues.push({ code: "UNKNOWN_SOURCE_REFERENCE", productSlug: product.slug, featureTitle: feature.title, sourceId, message: `Feature ${product.slug}/${feature.title} references unknown source: ${sourceId}` });
+        }
+      }
+      if (feature.verificationStatus === "verified" && validSourceIds.length === 0) {
+        issues.push({ code: "VERIFIED_FEATURE_WITHOUT_SOURCE", productSlug: product.slug, featureTitle: feature.title, message: `Verified feature ${product.slug}/${feature.title} requires a valid source` });
       }
     }
   }

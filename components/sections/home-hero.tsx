@@ -69,7 +69,7 @@ export function HomeHero() {
         <div className="home-hero-message" aria-hidden={videoActive || undefined}>
           <p className="eyebrow eyebrow-light">Контейнерная техника XCMG</p>
           <h1 id="home-hero-title">Ричстакеры XCMG</h1>
-          <p className="hero-lead">Техника для перемещения и штабелирования контейнеров. Поможем сопоставить модели по подтверждённым параметрам и подготовить коммерческое предложение.</p>
+          <p className="hero-lead">Техника для перемещения и штабелирования контейнеров. Поможем сопоставить модели по ключевым параметрам и подготовить коммерческое предложение.</p>
         </div>
         <div className="actions">
           <Link className="button" href={contactHref("quote")}>Получить предложение</Link>

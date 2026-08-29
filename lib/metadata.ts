@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { absoluteUrl } from "@/lib/site";
-interface MetadataInput { title:string;description:string;path:`/${string}`|"/";images?:`/images/products/${string}`[]; }
+interface MetadataInput { title:string;description:string;path:`/${string}`|"/";images?:`/images/${string}`[]; }
 export function createMetadata({ title,description,path,images=[] }:MetadataInput):Metadata {
   const url = absoluteUrl(path);
   return {

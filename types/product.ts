@@ -2,21 +2,22 @@ import type { SourceReference } from "@/types/source";
 
 export type VerificationStatus = "unverified" | "verified";
 export interface ProductSpecification {
+  group: "Производительность" | "Габариты и ходовая часть" | "Силовая установка" | "Электрическая установка";
   label: string;
   value: string | null;
   unit?: string;
   verificationStatus: VerificationStatus;
   sourceIds: SourceReference["id"][];
 }
-export interface ProductImage {
-  src: `/images/products/${string}`;
-  alt: string;
-  width: number;
-  height: number;
+export interface ProductFeature {
+  title: string;
+  description: string;
+  verificationStatus: VerificationStatus;
+  sourceIds: SourceReference["id"][];
 }
-export interface ProductMedia {
-  hero: ProductImage | null;
-  gallery: ProductImage[];
+export interface ProductFaqItem {
+  question: string;
+  answer: string;
 }
 export interface Product {
   id: string;
@@ -25,9 +26,14 @@ export interface Product {
   model: string | null;
   category: string;
   title: string;
+  driveType: "ДВС" | "Электрический";
   description: string;
+  overview: string[];
   applications: string[];
-  media: ProductMedia;
+  features: ProductFeature[];
+  selectionReasons: string[];
+  faq: ProductFaqItem[];
+  keySpecificationLabels: string[];
   specifications: ProductSpecification[];
   verificationStatus: VerificationStatus;
   sourceIds: SourceReference["id"][];

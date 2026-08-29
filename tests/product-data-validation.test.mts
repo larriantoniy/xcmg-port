@@ -21,6 +21,7 @@ const verifiedSource: SourceReference = {
 function copyProduct(): Product {
   const product = structuredClone(products[0]);
   product.sourceIds = [];
+  product.features = [];
   product.specifications = [{
     ...product.specifications[0],
     value: null,
@@ -44,13 +45,44 @@ test("site URLs share one normalized public origin", () => {
   assert.ok(siteConfig.url.startsWith("http://") || siteConfig.url.startsWith("https://"));
 });
 
-test("no unapproved product images are configured", () => {
-  assert.ok(products.every(({ media }) => media.hero === null && media.gallery.length === 0));
-});
-
 test("product SEO titles and descriptions are unique", () => {
   assert.equal(new Set(products.map(({ seo }) => seo.title)).size, products.length);
   assert.equal(new Set(products.map(({ seo }) => seo.description)).size, products.length);
+});
+
+test("product landing content is complete and unique", () => {
+  assert.equal(new Set(products.map(({ description }) => description)).size, products.length);
+  assert.ok(products.every((product) => product.overview.length >= 2));
+  assert.ok(products.every((product) => product.applications.length >= 3));
+  assert.ok(products.every((product) => product.features.length >= 4));
+  assert.ok(products.every((product) => product.selectionReasons.length >= 4));
+  assert.ok(products.every((product) => product.faq.length >= 5));
+  assert.ok(products.every((product) => product.specifications.every(({ group }) => group.length > 0)));
+});
+
+test("owner-approved powertrain data is verified", () => {
+  const specification = (slug: string, label: string) => products
+    .find((product) => product.slug === slug)
+    ?.specifications.find((item) => item.label === label);
+
+  const expected = [
+    ["xcs4545k", "Модель двигателя", "Volvo TAD1151", undefined],
+    ["xcs4541k", "Мощность двигателя", "265", "кВт"],
+    ["xcs4531k", "Модель двигателя", "Volvo X12", undefined],
+    ["xcs4531e", "Мощность электродвигателя", "300", "кВт"],
+    ["xcs4531e", "Батарея", "Fudi", undefined],
+    ["xcs4531e", "Ёмкость батареи", "535", "кВт·ч"],
+    ["xcs4531e", "Автономность", "10", "ч"],
+    ["xcs4531e", "Время полной зарядки", "85", "мин"],
+  ] as const;
+
+  for (const [slug, label, value, unit] of expected) {
+    const item = specification(slug, label);
+    assert.equal(item?.value, value);
+    assert.equal(item?.unit, unit);
+    assert.equal(item?.verificationStatus, "verified");
+    assert.ok(item && item.sourceIds.length > 0);
+  }
 });
 
 test("company contacts use only the approved channels", () => {
@@ -76,18 +108,8 @@ test("company legal data and map location match the centralized source", () => {
 test("hero media uses the documented local assets and delayed video", () => {
   assert.equal(heroMedia.image, "/media/hero/PROMO-XCMG.webp");
   assert.equal(heroMedia.video, "/media/hero/PROMO-XCMG.mp4");
-  assert.equal(heroMedia.videoDelayMs, 18_000);
+  assert.equal(heroMedia.videoDelayMs, 12_000);
   assert.equal(heroMedia.desktopMediaQuery, "(min-width: 768px)");
-});
-
-test("configured product images have valid local metadata", () => {
-  for (const product of products) {
-    for (const image of [product.media.hero, ...product.media.gallery].filter((item) => item !== null)) {
-      assert.ok(image.src.startsWith(`/images/products/${product.slug}/`));
-      assert.ok(image.alt.trim().length > 0);
-      assert.ok(image.width > 0 && image.height > 0);
-    }
-  }
 });
 
 test("rejects duplicate product slugs", () => {

@@ -1,10 +1,19 @@
 import Image from "next/image";
-import type { Product } from "@/types/product";
+import type { ProductImageAsset } from "@/lib/product-images";
 
-export function ProductImages({ product }: { product: Product }) {
-  const images = [product.media.hero, ...product.media.gallery].filter((image) => image !== null);
-  if (images.length === 0) {
-    return <div className="product-image-placeholder" role="img" aria-label={`Изображение ${product.title} пока не добавлено`}>Разрешённые изображения модели пока не добавлены</div>;
+interface ProductImagesProps {
+  image: ProductImageAsset | null;
+  productTitle: string;
+}
+
+export function ProductImages({ image, productTitle }: ProductImagesProps) {
+  if (!image) {
+    return <div className="product-image-placeholder" role="img" aria-label={`Фотография ${productTitle} недоступна`}>Фотография модели недоступна</div>;
   }
-  return <div className="product-images">{images.map((image, index) => <figure className={index === 0 ? "product-image-hero" : "product-image-gallery"} key={image.src}><Image src={image.src} alt={image.alt} width={image.width} height={image.height} priority={index === 0} sizes={index === 0 ? "(max-width: 900px) 100vw, 56vw" : "(max-width: 700px) 100vw, 36vw"} /></figure>)}</div>;
+
+  return (
+    <div className="product-image">
+      <Image src={image.src} alt={image.alt} fill priority sizes="(max-width: 900px) 100vw, (max-width: 1520px) 50vw, 740px"/>
+    </div>
+  );
 }
