@@ -1,328 +1,402 @@
-# XCMG Port Equipment — AGENTS.md
+# AGENTS.md
 
-## Project
+## Проект
 
-This repository contains a commercial Russian-language website for XCMG port equipment.
+Репозиторий содержит коммерческий русскоязычный сайт ричстакеров XCMG.
 
-The website represents industrial equipment sold by AO Gofer.
+Первая цель проекта — как можно быстрее запустить на production-домене качественный SEO-friendly сайт с актуальными моделями ричстакеров из каталога:
 
-The primary goals of the project are:
+https://xcmg-ru.ru/tehnika/richstakery-i-peregruzhateli-pustykh-konteynerov/
 
-1. Generate qualified commercial leads.
-2. Achieve strong organic visibility in Yandex.
-3. Maintain technically correct and factually accurate product information.
-4. Serve as the foundation for an AI-powered SEO automation system.
-5. Keep the architecture simple enough to evolve incrementally.
+На первом этапе нас интересуют только модели, которые прямо обозначены как «Ричстакер» или «Ричстакер электрический».
 
----
+Текущий MVP должен содержать:
 
-## Development Philosophy
+- XCS4545K;
+- XCS4541K;
+- XCS4531K;
+- XCS4531E.
 
-This is an AI-native project.
-
-AI agents should perform as much implementation work as reasonably possible, but must follow repository rules, tests, factual constraints, and approval boundaries.
-
-Do not introduce technologies simply because they are popular.
-
-Add infrastructure only when it solves an actual project problem.
-
-Prefer:
-
-- simple solutions;
-- explicit code;
-- typed data;
-- deterministic behavior;
-- maintainability;
-- testability;
-- good SEO;
-- measurable improvements.
-
-Avoid unnecessary abstractions and premature infrastructure.
+Не добавлять перегружатели порожних контейнеров в MVP.
 
 ---
 
-## Technology
+## Бизнес-цель
 
-Primary stack:
+Сайт должен:
 
-- Next.js
-- TypeScript
-- React
-- Tailwind CSS
-
-The application must use strict TypeScript.
-
-Do not introduce another frontend framework without an explicit architectural decision.
-
-Do not introduce a CMS, ORM, database, vector database, agent framework, or state-management framework unless the task explicitly requires it.
+1. Представлять ричстакеры XCMG.
+2. Получать коммерческий поисковый трафик из Яндекса.
+3. Генерировать обращения потенциальных покупателей.
+4. Стать основой для будущей AI SEO Automation System.
 
 ---
 
-## Language
+## Источник данных
 
-The public website is primarily Russian.
+Основной источник ассортимента и технических характеристик на первом этапе:
 
-Code identifiers, comments, commit messages, documentation structure, and technical instructions should preferably be English.
+xcmg-ru.ru
 
-Product and SEO copy intended for website visitors should be Russian.
+Не использовать память LLM как источник технических характеристик.
 
----
+Не придумывать:
 
-## Product Facts
+- характеристики;
+- цены;
+- наличие;
+- сроки доставки;
+- гарантийные условия;
+- статус дилера;
+- контакты;
+- коммерческие условия.
 
-Never invent product specifications.
-
-Technical parameters must originate from an approved source.
-
-Approved sources may include:
-
-- official XCMG documentation;
-- official XCMG product pages;
-- manufacturer brochures;
-- documents supplied by AO Gofer;
-- internal verified product data.
-
-If a specification cannot be confirmed, mark it as unknown instead of guessing.
-
-Never convert an assumption into a product fact.
+Если информации нет в разрешённом источнике или данных компании, не утверждать её как факт.
 
 ---
 
-## Company Claims
+## Важное правило контента
 
-Do not invent:
+Не копировать страницы xcmg-ru.ru целиком или близко к тексту оригинала.
 
-- dealer status;
-- exclusive distributor status;
-- warranties;
-- delivery terms;
-- stock availability;
-- prices;
-- service locations;
-- certifications;
-- customer numbers;
-- years in business.
+Можно использовать источник для:
 
-Company claims must be backed by approved business information.
+- модели;
+- категории;
+- характеристик;
+- технических фактов.
+
+Наш сайт должен создавать самостоятельное полезное представление данных:
+
+- структурированные характеристики;
+- понятные описания;
+- блоки применения;
+- преимущества;
+- FAQ;
+- сравнение моделей;
+- internal linking;
+- коммерческие CTA.
+
+AI-generated SEO-контент разрешён, но технические факты должны соответствовать источнику.
 
 ---
 
-## SEO Principles
+## Технологии
 
-Every public page must have a clear search intent.
+Использовать:
 
-Do not create pages merely to target keyword variants.
+- Next.js;
+- React;
+- TypeScript;
+- Tailwind CSS.
 
-Avoid:
+TypeScript должен оставаться строгим.
+
+Не добавлять без отдельной необходимости:
+
+- database;
+- ORM;
+- CMS;
+- RAG;
+- vector database;
+- agent framework;
+- MCP.
+
+На первом этапе данные о 4 моделях можно хранить в структурированном TypeScript.
+
+## UI-библиотеки
+
+В проекте используется shadcn/ui как основной базовый UI toolkit.
+
+Дополнительно подключён namespaced registry Aceternity UI:
+
+@aceternity
+
+Aceternity используется только как источник отдельных визуальных компонентов
+и паттернов, когда они действительно улучшают интерфейс.
+
+### shadcn/ui
+
+shadcn/ui является основным UI-слоем проекта.
+
+Компоненты shadcn размещаются в:
+
+components/ui/
+
+Новые стандартные UI primitives по возможности создавать через shadcn:
+
+- Button;
+- Card;
+- Accordion;
+- Dialog;
+- Sheet;
+- Table;
+- Tabs;
+- Breadcrumb;
+- Separator;
+- Input;
+- Form.
+
+Не переписывать существующие рабочие компоненты только ради использования shadcn.
+
+---
+
+### Aceternity UI
+
+Aceternity UI не является основным дизайн-языком проекта.
+
+Использовать его выборочно для:
+
+- Hero sections;
+- presentation изображений и видео;
+- restrained scroll effects;
+- timeline;
+- carousel;
+- визуального представления технических возможностей;
+- умеренных motion effects.
+
+Перед добавлением любого Aceternity-компонента агент должен:
+
+1. объяснить, какую задачу он решает;
+2. проверить соответствие industrial-дизайну XCMG;
+3. оценить влияние на производительность;
+4. проверить mobile UX;
+5. проверить accessibility;
+6. проверить влияние на Core Web Vitals.
+
+Не устанавливать Aceternity-компоненты автоматически только потому,
+что они доступны в registry.
+
+---
+
+### Визуальный стиль
+
+Сайт должен выглядеть как сайт поставщика тяжёлой промышленной техники.
+
+Основные характеристики дизайна:
+
+- технологичный;
+- индустриальный;
+- современный;
+- строгий;
+- коммерческий;
+- визуально дорогой;
+- хорошо читаемый.
+
+Избегать стилистики:
+
+- crypto;
+- Web3;
+- SaaS startup;
+- gaming;
+- neon;
+- excessive glassmorphism;
+- excessive gradients;
+- чрезмерного glow;
+- чрезмерных animations.
+
+Motion должен помогать восприятию контента, а не конкурировать с ним.
+
+---
+
+### Производительность
+
+Не использовать тяжёлые visual effects без необходимости.
+
+Особенно осторожно относиться к:
+
+- canvas animations;
+- WebGL;
+- большим JS animation libraries;
+- постоянным mouse tracking effects;
+- background particle systems;
+- тяжёлым client components.
+
+SEO и Core Web Vitals имеют больший приоритет, чем декоративные эффекты.
+
+Главные SEO-страницы должны оставаться максимально server-first.
+
+Добавление client-side компонентов должно быть локальным и обоснованным.
+
+---
+
+### Правило установки UI-компонентов
+
+Перед установкой нового компонента из registry:
+
+1. проверить, нет ли уже подходящего компонента в проекте;
+2. проверить shadcn/ui;
+3. только затем рассмотреть Aceternity;
+4. установить только конкретный необходимый компонент;
+5. не устанавливать набор компонентов «на будущее».
+
+После установки проверить:
+
+- dependencies;
+- bundle impact;
+- TypeScript;
+- lint;
+- production build;
+- mobile;
+- visual consistency.
+
+## SEO
+
+Сайт должен быть технически SEO-friendly с первой production-версии.
+
+Для индексируемых страниц проверять:
+
+- уникальный title;
+- meta description;
+- canonical;
+- один корректный H1;
+- логичную структуру H2-H3;
+- semantic HTML;
+- breadcrumbs;
+- internal linking;
+- sitemap.xml;
+- robots.txt;
+- structured data;
+- Open Graph;
+- alt для изображений;
+- mobile usability;
+- Core Web Vitals;
+- корректные HTTP status codes.
+
+Не использовать:
 
 - keyword stuffing;
 - doorway pages;
-- duplicate pages;
-- automatically generated low-value content;
-- fake reviews;
-- fabricated expertise;
-- copied competitor content.
+- скрытый текст;
+- массовые почти одинаковые страницы;
+- фиктивные отзывы;
+- выдуманные характеристики.
 
-Optimize first for solving the user's task.
-
-For important indexable pages consider:
-
-- title;
-- meta description;
-- canonical URL;
-- H1;
-- logical heading hierarchy;
-- breadcrumbs;
-- internal links;
-- useful structured content;
-- schema.org where appropriate;
-- image alt text;
-- crawlability;
-- performance;
-- mobile usability.
-
-SEO changes should eventually be measurable through Yandex Webmaster and Yandex Metrica.
+Одна качественная страница должна по возможности покрывать кластер близких поисковых запросов.
 
 ---
 
-## Product Pages
+## Структура MVP
 
-Each product page should be capable of containing:
+Основные страницы:
 
-- product name;
-- category;
-- introductory value proposition;
-- applications;
-- technical specifications;
-- equipment features;
-- benefits;
-- images;
-- delivery information;
-- warranty information when verified;
-- service information when verified;
+- `/`
+- `/richstackery/`
+- `/richstackery/xcs4545k/`
+- `/richstackery/xcs4541k/`
+- `/richstackery/xcs4531k/`
+- `/richstackery/xcs4531e/`
+- `/about/`
+- `/contacts/`
+
+Не создавать лишние разделы без необходимости.
+
+---
+
+## Страница модели
+
+Каждая страница модели должна по возможности содержать:
+
+- название модели;
+- H1;
+- краткое описание;
+- изображения;
+- основные характеристики;
+- полную таблицу доступных характеристик;
+- назначение;
+- особенности;
+- преимущества;
 - CTA;
 - FAQ;
-- related equipment;
-- structured data;
-- breadcrumbs.
+- ссылки на другие ричстакеры;
+- breadcrumbs;
+- structured data.
 
-Do not force sections that have no meaningful information.
-
----
-
-## Architecture
-
-Prefer reusable components over duplicated markup.
-
-Product data should initially be separated from page presentation.
-
-Use structured TypeScript objects for product information.
-
-Example conceptual structure:
-
-Product
-- id
-- slug
-- brand
-- model
-- category
-- title
-- description
-- specifications
-- features
-- applications
-- images
-- seo
-- sources
-
-Product pages should be generated from structured product data where reasonable.
+Не придумывать отсутствующие факты ради заполнения секций.
 
 ---
 
-## Source Tracking
+## Работа AI-агента
 
-Important technical facts should eventually support provenance.
+Перед изменениями:
 
-Where practical, product records should retain information about the source used to verify specifications.
+1. Прочитать `AGENTS.md`.
+2. Изучить существующий код.
+3. Не переписывать несвязанные части проекта.
+4. Выполнить минимальное разумное изменение.
+5. После изменения запустить подходящие проверки.
 
-Future AI systems will rely on this provenance for fact checking and RAG.
-
----
-
-## AI Generated Content
-
-AI-generated content is allowed.
-
-AI-generated factual claims without evidence are not allowed.
-
-Before publication, generated content should eventually pass:
-
-- factual validation;
-- SEO checks;
-- duplication checks;
-- code tests;
-- structured-data validation.
+AI должен помогать максимально автоматизировать разработку, но обычный программный код использовать там, где AI не нужен.
 
 ---
 
-## Agent Behavior
+## Проверки
 
-Before making a substantial change:
+Перед завершением значимых изменений запускать:
 
-1. inspect existing code;
-2. inspect relevant documentation;
-3. understand the current architecture;
-4. identify the smallest sensible implementation;
-5. preserve existing working behavior.
-
-Do not rewrite unrelated areas of the project.
-
-When requirements are incomplete, use the safest reasonable assumption and document it.
-
----
-
-## Subagents
-
-When subagents are available, delegate work by responsibility rather than arbitrarily.
-
-Suitable responsibilities include:
-
-- product research;
-- frontend implementation;
-- technical SEO;
-- testing;
-- factual verification;
-- code review.
-
-The primary agent remains responsible for integrating the final result.
-
----
-
-## Testing
-
-Changes should not be considered complete when code merely compiles.
-
-Where relevant run:
-
-- TypeScript checks;
 - lint;
-- unit tests;
-- build;
-- SEO validation;
-- structured-data validation.
+- TypeScript check;
+- tests, если применимо;
+- production build.
 
-Do not silently disable tests to make a task pass.
-
----
-
-## Git
-
-Do not force-push shared branches.
-
-Do not commit secrets.
-
-Do not automatically deploy production unless explicitly authorized.
-
-Future autonomous SEO agents should modify the repository through branches and pull requests rather than directly changing production.
+Не отключать проверки ради успешного результата.
 
 ---
 
-## Security
+## Git и production
 
-Never expose:
+Не коммитить secrets.
 
-- API keys;
-- authentication tokens;
-- private customer data;
-- infrastructure credentials.
+Не выполнять force push без необходимости.
 
-Use environment variables for secrets.
+Не менять production автоматически без отдельного разрешения.
 
-Agents should follow least-privilege access.
+На будущем этапе AI SEO System изменения должны проходить по цепочке:
+
+SEO Agent
+→ изменение
+→ tests/evals
+→ Pull Request
+→ Human Review
+→ Merge
+→ Deploy.
 
 ---
 
-## Future Architecture
+## Следующий этап после MVP
 
-The repository is expected to evolve toward an AI SEO platform containing:
+После публикации сайта и подключения Яндекс Вебмастера и Яндекс Метрики проект развивается в AI SEO Automation System.
 
-- external SEO tools;
-- Function Calling;
-- MCP servers;
-- RAG;
-- embeddings;
-- vector search;
-- specialized agents;
-- subagents;
-- agent orchestration;
-- memory;
-- evals;
-- tracing;
-- observability;
-- automated pull requests;
-- human approval;
-- SEO experimentation.
+Она должна уметь использовать:
 
-Do not implement these components before they become useful.
+- Yandex Wordstat;
+- Yandex Webmaster;
+- Yandex Metrica;
+- данные поисковой выдачи;
+- данные текущего сайта.
 
-The project should evolve incrementally rather than starting as a complex multi-agent system.
+Цель системы:
+
+1. находить перспективные поисковые запросы;
+2. определять страницы с потенциалом роста;
+3. выявлять content gaps;
+4. предлагать SEO-изменения;
+5. автоматически подготавливать изменения репозитория;
+6. проверять изменения;
+7. создавать Pull Request;
+8. после публикации измерять эффект;
+9. использовать результаты предыдущих SEO-экспериментов для следующих решений.
+
+Именно на этом этапе постепенно внедрять:
+
+- Structured Outputs;
+- Tool Calling;
+- Skills;
+- MCP;
+- Subagents;
+- Evals;
+- Observability;
+- Memory;
+- Human-in-the-loop.
+
+Не внедрять эти технологии до появления конкретной задачи.
