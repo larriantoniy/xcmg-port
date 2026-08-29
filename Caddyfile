@@ -1,0 +1,3 @@
+port-tech.ru {
+    reverse_proxy xcmg-port:3000
+}
