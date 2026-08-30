@@ -27,7 +27,7 @@ npm run build
 
 ## Configuration
 
-Copy the public configuration keys from `.env.example`. `NEXT_PUBLIC_SITE_URL` must be set before a production build. Contact, company and legal variables must contain only approved public information.
+The production site URL is configured centrally in `lib/site.ts`. Contact, company and legal variables must contain only approved public information.
 
 ## Deployment
 

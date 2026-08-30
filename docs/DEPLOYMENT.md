@@ -8,19 +8,14 @@
 - [ ] Настроить DNS для production hosting.
 - [ ] Выбрать единственный canonical host (`www` или без `www`) и настроить постоянный redirect со второго варианта.
 - [ ] Проверить действующий TLS-сертификат.
-- [ ] Установить `NEXT_PUBLIC_SITE_URL` как origin без пути и завершающего `/`, например `https://<production-domain>`.
+- [ ] Проверить production URL в `lib/site.ts` и при смене домена изменить его только там.
 
 ## 2. Environment variables
 
-- [ ] Скопировать список ключей из `.env.example` в настройки hosting platform.
-- [ ] Не добавлять secrets в `NEXT_PUBLIC_*`: эти значения доступны посетителям сайта.
-- [ ] Пересобрать сайт после любого изменения `NEXT_PUBLIC_*`.
+- [ ] Не добавлять secrets в публичную конфигурацию приложения.
+- [ ] Пересобрать сайт после изменения production URL в `lib/site.ts`.
 
-Обязательная переменная для production:
-
-- `NEXT_PUBLIC_SITE_URL`
-
-При deploy через Docker Compose создайте на VPS файл `/opt/xcmg-port/.env` с единственной строкой `NEXT_PUBLIC_SITE_URL=https://<production-domain>`. Compose передаёт это значение в build и runtime; без него production-сборка останавливается, чтобы в sitemap и metadata не попал `localhost`.
+Production URL не зависит от environment variables: он хранится в `lib/site.ts` как единая статическая конфигурация и используется при сборке sitemap, robots, metadata и structured data.
 
 Телефон, email, адрес и реквизиты хранятся в `data/company.ts` и не переопределяются environment variables. Перед deploy их необходимо ещё раз сверить с владельцем сайта и утверждёнными источниками.
 

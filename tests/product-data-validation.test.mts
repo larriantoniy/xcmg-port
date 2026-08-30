@@ -5,7 +5,7 @@ import { companyData, contactHref } from "../data/company.ts";
 import { heroMedia } from "../data/hero-media.ts";
 import { sources } from "../data/sources.ts";
 import { validateProductData } from "../lib/product-data-validation.ts";
-import { absoluteUrl, siteConfig } from "../lib/site.ts";
+import { absoluteUrl, SITE_URL } from "../lib/site.ts";
 import type { Product } from "../types/product.ts";
 import type { SourceReference } from "../types/source.ts";
 
@@ -41,8 +41,8 @@ test("MVP contains only the four approved reach stackers", () => {
 });
 
 test("site URLs share one normalized public origin", () => {
-  assert.equal(absoluteUrl("/richstackery/xcs4545k"), `${siteConfig.url}/richstackery/xcs4545k`);
-  assert.ok(siteConfig.url.startsWith("http://") || siteConfig.url.startsWith("https://"));
+  assert.equal(absoluteUrl("/richstackery/xcs4545k"), `${SITE_URL}/richstackery/xcs4545k`);
+  assert.ok(SITE_URL.startsWith("http://") || SITE_URL.startsWith("https://"));
 });
 
 test("product SEO titles and descriptions are unique", () => {
