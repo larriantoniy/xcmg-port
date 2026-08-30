@@ -20,6 +20,8 @@
 
 - `NEXT_PUBLIC_SITE_URL`
 
+При deploy через Docker Compose создайте на VPS файл `/opt/xcmg-port/.env` с единственной строкой `NEXT_PUBLIC_SITE_URL=https://<production-domain>`. Compose передаёт это значение в build и runtime; без него production-сборка останавливается, чтобы в sitemap и metadata не попал `localhost`.
+
 Телефон, email, адрес и реквизиты хранятся в `data/company.ts` и не переопределяются environment variables. Перед deploy их необходимо ещё раз сверить с владельцем сайта и утверждёнными источниками.
 
 ## 3. Images
