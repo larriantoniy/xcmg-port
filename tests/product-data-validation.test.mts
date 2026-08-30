@@ -85,7 +85,7 @@ test("owner-approved powertrain data is verified", () => {
   }
 });
 
-test("company contacts use only the approved channels", () => {
+test("company contacts retain the approved lead channels", () => {
   assert.equal(companyData.phone, "+7 932 019 99 93");
   assert.equal(companyData.phoneHref, "tel:+79320199993");
   assert.equal(companyData.email, "kra@xcmg.ru");
@@ -96,13 +96,16 @@ test("company contacts use only the approved channels", () => {
 });
 
 test("company legal data and map location match the centralized source", () => {
-  assert.equal(companyData.inn, "9718288568");
-  assert.equal(companyData.kpp, "771801001");
-  assert.equal(companyData.ogrn, null);
-  assert.match(companyData.address.full, /Краснобогатырская/);
-  assert.equal(companyData.coordinates.latitude, 55.814558);
-  assert.equal(companyData.coordinates.longitude, 37.693723);
-  assert.ok(companyData.yandexMapEmbedUrl.includes("37.693723%2C55.814558"));
+  assert.equal(companyData.legalName, "ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ «СТРОЙТЕХИМПОРТ»");
+  assert.equal(companyData.inn, "7451340147");
+  assert.equal(companyData.kpp, "744701001");
+  assert.equal(companyData.ogrn, "1127451009564");
+  assert.match(companyData.address.full, /Победы/);
+  assert.equal(companyData.coordinates.latitude, 55.182922);
+  assert.equal(companyData.coordinates.longitude, 61.374122);
+  assert.ok(companyData.yandexMapEmbedUrl.includes("61.374122%2C55.182922"));
+  assert.equal(companyData.distributor.certificatePath, "/documents/sertifikat-distributor-xcmg.pdf");
+  assert.ok(!companyData.legalName.includes("ГОФФЕР"));
 });
 
 test("hero media uses the documented local assets and delayed video", () => {

@@ -131,7 +131,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
     <section className="section product-content-grid" aria-labelledby="warranty">
       <div><p className="eyebrow">Поддержка техники</p><h2 id="warranty">Гарантия и сервис</h2></div>
-      <div><p>Гарантийные условия, регламент обслуживания и доступность сервисных работ следует согласовать для выбранной комплектации до заключения сделки.</p><Link className="text-link" href="/garantiya">Гарантия и сервис →</Link></div>
+      <div><p>{companyData.shortName} — официальный дистрибьютор портовой техники XCMG с правом на гарантийное и постгарантийное обслуживание. Условия для выбранной комплектации уточняйте до заключения сделки.</p><Link className="text-link" href="/garantiya">Гарантия и сервис →</Link></div>
     </section>
 
     <section className="section faq-section" aria-labelledby="faq">

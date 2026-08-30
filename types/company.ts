@@ -16,6 +16,20 @@ export interface CompanyCoordinates {
   longitude: number;
 }
 
+export interface CompanyPhone {
+  label: string;
+  value: string;
+  href: `tel:${string}`;
+}
+
+export interface DistributorDetails {
+  status: string;
+  territory: string;
+  validFrom: string;
+  validTo: string;
+  certificatePath: string;
+}
+
 export interface CompanyData {
   companyName: string;
   shortName: string;
@@ -24,17 +38,23 @@ export interface CompanyData {
   activityDescription: string;
   address: CompanyAddress;
   coordinates: CompanyCoordinates;
+  /** Primary commercial contact for the site's CTA flow. */
   phone: string;
   phoneHref: `tel:${string}`;
   email: string;
   emailHref: `mailto:${string}`;
-  sourceWebsite: string;
+  headOfficePhone: CompanyPhone;
+  salesDepartmentPhone: CompanyPhone;
+  salesManager: {
+    name: string;
+    phone: CompanyPhone;
+  };
   inn: string;
   kpp: string;
-  ogrn: string | null;
-  workingHours: string | null;
+  ogrn: string;
+  registrationDate: string;
   advantages: CompanyAdvantage[];
-  representativeStatus: string | null;
+  distributor: DistributorDetails;
   yandexMapUrl: string;
   yandexMapEmbedUrl: string;
 }
