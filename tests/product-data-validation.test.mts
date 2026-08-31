@@ -3,6 +3,7 @@ import test from "node:test";
 import { products } from "../data/products.ts";
 import { companyData, contactHref } from "../data/company.ts";
 import { heroMedia } from "../data/hero-media.ts";
+import { leasingContent } from "../data/leasing.ts";
 import { sources } from "../data/sources.ts";
 import { validateProductData } from "../lib/product-data-validation.ts";
 import { absoluteUrl, SITE_URL } from "../lib/site.ts";
@@ -113,6 +114,12 @@ test("hero media uses the documented local assets and delayed video", () => {
   assert.equal(heroMedia.video, "/media/hero/PROMO-XCMG.mp4");
   assert.equal(heroMedia.videoDelayMs, 12_000);
   assert.equal(heroMedia.desktopMediaQuery, "(min-width: 768px)");
+});
+
+test("leasing page content keeps approved conditions and local media paths", () => {
+  assert.deepEqual(leasingContent.imagePaths, ["/lizing/1.webp", "/lizing/2.webp"]);
+  assert.deepEqual(leasingContent.conditions.map(({ value }) => value), ["От 10%", "От 1 до 5 лет", "От первоначальной стоимости", "Досрочного погашения"]);
+  assert.equal(absoluteUrl("/lizing"), `${SITE_URL}/lizing`);
 });
 
 test("rejects duplicate product slugs", () => {

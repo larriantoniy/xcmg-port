@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ContactPanel } from "@/components/contact-panel";
 import { CtaLink } from "@/components/cta-link";
@@ -23,6 +24,7 @@ export default function RichstackersPage() {
     <section className="section" aria-labelledby="catalog"><div className="section-heading"><div><p className="eyebrow">Каталог</p><h2 id="catalog">Модельный ряд ричстакеров XCMG</h2></div><p className="section-lead">Выберите подходящую модель. Перегружатели порожних контейнеров в этот каталог не включены.</p></div><div className="product-grid">{products.map((product)=><ProductCard key={product.id} product={product}/>)}</div></section>
     <section className="section" aria-labelledby="comparison"><div className="section-heading"><div><p className="eyebrow">Ключевые параметры</p><h2 id="comparison">Сравнение моделей</h2></div></div><ProductComparison/><p className="table-note">Для окончательного подбора потребуются сведения о контейнерах, схеме площадки, интенсивности работы и предпочтительном типе привода.</p></section>
     <section className="section split-content"><div><p className="eyebrow">Подбор</p><h2>Какие данные подготовить</h2></div><ul className="check-list"><li>Типы и масса обрабатываемых контейнеров</li><li>Требуемая схема и высота штабелирования</li><li>Размеры проездов и рабочей площадки</li><li>Режим и интенсивность эксплуатации</li><li>Ограничения по типу силовой установки</li></ul></section>
+    <section className="section split-content"><div><p className="eyebrow">Финансирование</p><h2>Лизинг ричстакеров XCMG</h2></div><div><p>Для приобретения техники можно рассмотреть лизинговое финансирование с первоначальным взносом от 10% и сроком от 1 до 5 лет.</p><Link className="text-link" href="/lizing">Условия лизинга →</Link></div></section>
     <section className="section section-last"><ContactPanel title="Нужна помощь со сравнением моделей?"/></section>
   </>;
 }

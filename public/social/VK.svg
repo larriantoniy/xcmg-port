@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <rect width="1024" height="1024" fill="#ffffff"/>
+
+  <!-- Outer rings -->
+  <circle cx="512" cy="512" r="468"
+          fill="none" stroke="#000000" stroke-width="26"/>
+  <circle cx="512" cy="512" r="434"
+          fill="none" stroke="#000000" stroke-width="5"/>
+
+  <!-- Central stem -->
+  <rect x="448" y="268" width="96" height="488" fill="#000000"/>
+
+  <!-- Left curved arm -->
+  <path d="
+    M 214 268
+    L 314 268
+    C 314 390, 326 462, 382 520
+    C 412 552, 441 565, 494 570
+    L 494 666
+    C 392 658, 324 628, 276 574
+    C 226 518, 214 445, 214 340
+    Z" fill="#000000"/>
+
+  <!-- Upper right curved arm -->
+  <path d="
+    M 540 434
+    C 628 414, 688 376, 726 316
+    C 744 288, 756 260, 765 228
+    L 868 228
+    C 850 320, 810 392, 748 447
+    C 700 490, 636 522, 570 538
+    L 522 500
+    Z" fill="#000000"/>
+
+  <!-- Lower right curved arm -->
+  <path d="
+    M 528 520
+    C 602 538, 670 574, 716 628
+    C 758 677, 782 728, 800 788
+    L 696 788
+    C 682 746, 662 710, 634 680
+    C 606 650, 573 630, 532 618
+    Z" fill="#000000"/>
+</svg>
