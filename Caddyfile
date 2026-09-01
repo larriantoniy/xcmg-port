@@ -1,3 +1,7 @@
 port-tech.ru {
     reverse_proxy xcmg-port:3000
 }
+
+www.port-tech.ru {
+    redir https://port-tech.ru{uri} permanent
+}
