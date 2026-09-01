@@ -28,7 +28,7 @@ https://xcmg-ru.ru/tehnika/richstakery-i-peregruzhateli-pustykh-konteynerov/
 1. Представлять ричстакеры XCMG.
 2. Получать коммерческий поисковый трафик из Яндекса.
 3. Генерировать обращения потенциальных покупателей.
-4. Стать основой для будущей AI SEO Automation System.
+4. Стать Validation Lab для будущего SiteMind workflow.
 
 ---
 
@@ -300,8 +300,10 @@ SEO и Core Web Vitals имеют больший приоритет, чем де
 - `/richstackery/xcs4541k/`
 - `/richstackery/xcs4531k/`
 - `/richstackery/xcs4531e/`
+- `/garantiya/`
 - `/about/`
 - `/contacts/`
+- `/lizing/`
 
 Не создавать лишние разделы без необходимости.
 
@@ -365,52 +367,48 @@ AI должен помогать максимально автоматизиро
 
 Не менять production автоматически без отдельного разрешения.
 
-На будущем этапе AI SEO System изменения должны проходить по цепочке:
+При работе с SiteMind-экспериментом изменения проходят по цепочке:
 
-SEO Agent
-→ изменение
-→ tests/evals
-→ Pull Request
-→ Human Review
-→ Merge
-→ Deploy.
+Evidence
+→ Hypothesis
+→ Human Approval
+→ Implementation
+→ Git Commit
+→ Deploy
+→ Measurement
+→ Verdict
+→ Learning.
 
 ---
 
-## Следующий этап после MVP
+## SiteMind workflow
 
-После публикации сайта и подключения Яндекс Вебмастера и Яндекс Метрики проект развивается в AI SEO Automation System.
+SiteMind = WHAT + WHY. Codex = HOW.
 
-Она должна уметь использовать:
+SiteMind owns:
 
-- Yandex Wordstat;
-- Yandex Webmaster;
-- Yandex Metrica;
-- данные поисковой выдачи;
-- данные текущего сайта.
+- evidence analysis;
+- opportunity discovery;
+- hypothesis formulation;
+- experiment definition;
+- measurement;
+- verdict;
+- learning.
 
-Цель системы:
+Codex owns:
 
-1. находить перспективные поисковые запросы;
-2. определять страницы с потенциалом роста;
-3. выявлять content gaps;
-4. предлагать SEO-изменения;
-5. автоматически подготавливать изменения репозитория;
-6. проверять изменения;
-7. создавать Pull Request;
-8. после публикации измерять эффект;
-9. использовать результаты предыдущих SEO-экспериментов для следующих решений.
+- implementation;
+- code changes;
+- tests;
+- build;
+- commit / PR preparation when explicitly requested.
 
-Именно на этом этапе постепенно внедрять:
+Codex must not independently invent a new SEO strategy when implementing an
+approved SiteMind experiment. Codex must not claim that an SEO change improved
+rankings, traffic, or visibility unless measured evidence exists. When an
+implementation belongs to an existing SiteMind experiment, reference its
+experiment ID where practical.
 
-- Structured Outputs;
-- Tool Calling;
-- Skills;
-- MCP;
-- Subagents;
-- Evals;
-- Observability;
-- Memory;
-- Human-in-the-loop.
-
-Не внедрять эти технологии до появления конкретной задачи.
+Do not create an experiment ID until a concrete evidence-based opportunity
+exists. Do not add SiteMind technologies or automation merely for a portfolio;
+the future architecture must grow from repeated real manual experiments.
