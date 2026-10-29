@@ -4,6 +4,13 @@ const baseUrl = "https://xcmg-ru.ru/tehnika/richstakery-i-peregruzhateli-pustykh
 
 export const sources: SourceReference[] = [
   {
+    id: "xcmg-com-xcs4531e8-2026-10-29",
+    type: "manufacturer_webpage",
+    title: "XCMG — XCS4531E8",
+    url: "https://www.xcmg.com/product/pro-detail-138317.htm",
+    verifiedAt: "2026-10-29T00:00:00+04:00",
+  },
+  {
     id: "xcmg-ru-richstackery-category-2026-08-28",
     type: "manufacturer_webpage",
     title: "XCMG Россия — ричстакеры и перегружатели пустых контейнеров",

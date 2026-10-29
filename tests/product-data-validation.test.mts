@@ -71,10 +71,10 @@ test("owner-approved powertrain data is verified", () => {
     ["xcs4541k", "Мощность двигателя", "265", "кВт"],
     ["xcs4531k", "Модель двигателя", "Volvo X12", undefined],
     ["xcs4531e", "Мощность электродвигателя", "300", "кВт"],
-    ["xcs4531e", "Батарея", "Fudi", undefined],
-    ["xcs4531e", "Ёмкость батареи", "535", "кВт·ч"],
-    ["xcs4531e", "Автономность", "10", "ч"],
-    ["xcs4531e", "Время полной зарядки", "85", "мин"],
+    ["xcs4531e", "Производитель аккумуляторной системы", "CATL или BYD, в зависимости от исполнения", undefined],
+    ["xcs4531e", "Ёмкость аккумуляторной системы", "528 или 600", "кВт·ч"],
+    ["xcs4531e", "Ориентировочная автономность", "около 10", "ч"],
+    ["xcs4531e", "Ориентировочное время полной зарядки", "около 85", "мин"],
   ] as const;
 
   for (const [slug, label, value, unit] of expected) {
@@ -84,6 +84,14 @@ test("owner-approved powertrain data is verified", () => {
     assert.equal(item?.verificationStatus, "verified");
     assert.ok(item && item.sourceIds.length > 0);
   }
+});
+
+test("XCS4531E publishes only the approved E8 configuration variants for its battery system", () => {
+  const electricReachstacker = products.find((product) => product.slug === "xcs4531e");
+
+  assert.ok(electricReachstacker);
+  assert.equal(electricReachstacker.specifications.find((item) => item.label === "Максимальная высота подъёма")?.value, "15100");
+  assert.doesNotMatch(JSON.stringify(electricReachstacker), /Fudi|535|13[,.]?6|13600/i);
 });
 
 test("company contacts retain the approved lead channels", () => {
